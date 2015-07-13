@@ -1,2 +1,5 @@
 # 2015_summer_study
-스터디자료
+
+### Getting Started
+
+To be Continue...
