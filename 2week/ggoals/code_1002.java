@@ -86,7 +86,7 @@ public class code_1002 {
 			int num1 = arr[i];
 			int num2 = arr[i+1];
 			
-			arr[i+1] = arr[i] * arr[i+1] / getGCD(num1, num2);
+			arr[i+1] = arr[i] / getGCD(num1, num2) * arr[i+1] ;
 		}
 		
 		return arr[arr.length - 1];

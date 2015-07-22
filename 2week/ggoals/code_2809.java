@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.List;
 
 public class code_2809 {
 	public static void main(String args[]) {
@@ -16,7 +15,7 @@ public class code_2809 {
 		list.add(1);
 		for(int i = 2; i < num; i++) {
 			if(num % i == 0 ) {
-				if(list.get(list.size() - 1) * i == num ) {
+				if(list.get(list.size() - 1) * i >= num ) {
 					break;
 				}
 				list.add(i);
