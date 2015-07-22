@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.List;
 
@@ -24,36 +26,45 @@ public class code_2255 {
 		int tempArr[] = new int[arr.length];
 		int temp;
 		int count;
+		List<Integer> lst = new ArrayList<Integer>();
+		HashMap<Integer, Boolean> lstMap = new HashMap<Integer, Boolean>(); 
+		HashMap<Integer, Boolean> arrMap = new HashMap<Integer, Boolean>();
+		
 		
 		for(int i = 0; i < tempArr.length; i++) {
+			if(!arrMap.getOrDefault(i, true)) {
+				continue;
+			}
 			count = 1;
 			temp = arr[i];
+			
 			
 			while(true) {
 				if(temp == i + 1){
 					break;
 				}
 				
+				
 				temp = arr[temp - 1];
+				arrMap.put(temp - 1, false);
+				
 				count++;
 			}
 			
-			tempArr[i] = count;
-		}
-		
-		
-		List<Integer> lst = new ArrayList<Integer>();
-		
-		for(int i = 0; i < tempArr.length; i++) {
-			if(tempArr[i] != 1 && lst.indexOf(tempArr[i]) < 0) {
-				lst.add(tempArr[i]);
+			if(count != 1 && lstMap.getOrDefault(count, true)) {
+				lstMap.put(count, false);
+				lst.add(count);
 			}
 		}
+		
+		
 		
 		int arr2[] = new int[lst.size()];
 		for(int i = 0;i < arr2.length; i++) {
 			arr2[i] = lst.get(i);
 		}
+		
+		Arrays.sort(arr2);
 		
 		
 		return getLCM(arr2);
@@ -93,10 +104,8 @@ public class code_2255 {
 		}
 		
 		for(int i = 0; i < arr.length - 1; i++) {
-			int num1 = arr[i];
-			int num2 = arr[i+1];
 			
-			arr[i+1] = arr[i] * arr[i+1] / getGCD(num1, num2);
+			arr[i+1] = arr[i] / getGCD(arr[i], arr[i+1]) * arr[i+1] ;
 		}
 		
 		return arr[arr.length - 1];
