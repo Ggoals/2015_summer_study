@@ -21,58 +21,6 @@ public class code_2255 {
 	}
 	
 	public static int getTraceCount(int[] arr) {
-		int count = 1;
-		
-		int tempArr[] = getMinArr(arr);
-		
-		
-		List<Integer> lst = new ArrayList<Integer>();
-		
-		for(int i = 0; i < tempArr.length; i++) {
-			if(tempArr[i] != 1 && lst.indexOf(tempArr[i]) < 0) {
-				lst.add(tempArr[i]);
-			}
-		}
-		
-		int maxNum = 1;
-		
-		for(int i = 0; i < lst.size(); i++) {
-			if(lst.get(i) > maxNum) {
-				maxNum = lst.get(i);
-			}
-		}
-		
-		int maxCommonDevision = 1;
-		for(int i = maxNum; i >= 1; i--) {
-			boolean isAllDevision = true;
-			
-			for(int j = 0; j < lst.size(); j++) {
-				if(lst.get(j) % i != 0) {
-					isAllDevision = false;
-					break;
-				}
-			}
-			
-			if(isAllDevision) {
-				maxCommonDevision = i;
-				break;
-			}
-		}
-		
-		
-		for(int i = 0; i < lst.size(); i++) {
-			count = count * lst.get(i) / maxCommonDevision;
-		}
-		
-		if(lst.size() == 1) {
-			count = count * maxCommonDevision;
-		}
-		
-		
-		return count;
-	}
-	
-	public static int[] getMinArr(int[] arr) {
 		int tempArr[] = new int[arr.length];
 		int temp;
 		int count;
@@ -93,7 +41,65 @@ public class code_2255 {
 			tempArr[i] = count;
 		}
 		
-		return tempArr;
+		
+		List<Integer> lst = new ArrayList<Integer>();
+		
+		for(int i = 0; i < tempArr.length; i++) {
+			if(tempArr[i] != 1 && lst.indexOf(tempArr[i]) < 0) {
+				lst.add(tempArr[i]);
+			}
+		}
+		
+		int arr2[] = new int[lst.size()];
+		for(int i = 0;i < arr2.length; i++) {
+			arr2[i] = lst.get(i);
+		}
+		
+		
+		return getLCM(arr2);
+	}
+	
+	
+	
+	public static int getGCD(int num1, int num2) {
+		while(true) {
+			if(num2 > num1) {
+				num2 = num2 % num1;
+				if(num2 == 0) {
+					num2 = num1;
+					break;	
+				}
+				else {
+					continue;
+				}
+			}
+			else {
+				num1 = num1 % num2;
+				if(num1 == 0) {
+					break;	
+				}
+				else {
+					continue;
+				}
+			}
+		}
+		
+		return num2;
+	}
+	
+	public static int getLCM(int arr[]) {
+		if(arr.length == 1) {
+			return arr[0];
+		}
+		
+		for(int i = 0; i < arr.length - 1; i++) {
+			int num1 = arr[i];
+			int num2 = arr[i+1];
+			
+			arr[i+1] = arr[i] * arr[i+1] / getGCD(num1, num2);
+		}
+		
+		return arr[arr.length - 1];
 	}
 }
 
