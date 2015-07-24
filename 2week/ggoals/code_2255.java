@@ -32,7 +32,7 @@ public class code_2255 {
 		
 		
 		for(int i = 0; i < tempArr.length; i++) {
-			if(!arrMap.getOrDefault(i, true)) {
+			if(!arrMap.get(i)) {
 				continue;
 			}
 			count = 1;
@@ -51,7 +51,7 @@ public class code_2255 {
 				count++;
 			}
 			
-			if(count != 1 && lstMap.getOrDefault(count, true)) {
+			if(count != 1 && lstMap.get(count)) {
 				lstMap.put(count, false);
 				lst.add(count);
 			}
