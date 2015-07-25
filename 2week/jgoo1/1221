@@ -1,0 +1,64 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main{
+	public static void main(String[] args){
+		
+		Scanner sn =  new Scanner(System.in);
+		int numOfElement = Integer.parseInt(sn.nextLine());
+		String s = sn.nextLine();
+		String[] arr = s.split(" ");		
+		List<String> arrList = new ArrayList<String>(Arrays.asList(arr));
+		
+		while(arrList.size() > 1){
+			for(int i=0; arrList.size() > 1;i++){
+				String operator = arrList.get(i);
+				int num1 ,num2;
+				if(operator.equals("+")){
+					num1 = Integer.parseInt(arrList.get(i-2));
+					arrList.remove(i-2);
+					num2 = Integer.parseInt(arrList.get(i-2));
+					arrList.remove(i-2);
+					
+					arrList.set(i-2, String.valueOf(num1+num2));
+					i=0;
+					
+				}else if(operator.equals("-")){
+					num1 = Integer.parseInt(arrList.get(i-2));
+					arrList.remove(i-2);
+					num2 = Integer.parseInt(arrList.get(i-2));
+					arrList.remove(i-2);
+					
+					arrList.set(i-2, String.valueOf(num1-num2));
+					i=0;
+				}else if(operator.equals("*")){
+					num1 = Integer.parseInt(arrList.get(i-2));
+					arrList.remove(i-2);
+					num2 = Integer.parseInt(arrList.get(i-2));
+					arrList.remove(i-2);
+					
+					arrList.set(i-2, String.valueOf(num1*num2));
+					i=0;
+					
+				}else if(operator.equals("/")){
+					num1 = Integer.parseInt(arrList.get(i-2));
+					arrList.remove(i-2);
+					num2 = Integer.parseInt(arrList.get(i-2));
+					arrList.remove(i-2);
+					if(num2 == 0){
+						System.out.println("Error: it cannot be devided by 0");
+						break;
+					}else{
+						arrList.set(i-2, String.valueOf(num1/num2));
+						i=0;
+					}					
+				}
+			}
+		}
+			
+		System.out.println(arrList.get(0));
+	}
+}
+

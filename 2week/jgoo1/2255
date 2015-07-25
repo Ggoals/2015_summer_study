@@ -1,0 +1,92 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main{	
+	public static void main(String[] args){
+		Scanner sn = new Scanner(System.in);
+		int length = Integer.parseInt(sn.nextLine());
+		String[] cardNums = sn.nextLine().split(" ");
+		int[] cardNumsInt = new int[length];
+		
+		for(int i=0; i<length;i++){
+			cardNumsInt[i] = Integer.parseInt(cardNums[i]);
+		}		
+		System.out.println(trace(cardNumsInt));
+	}
+	
+	public static int trace(int[] arr){
+		ArrayList al = new ArrayList();
+		for(int i=0; i<arr.length;i++){
+			int cnt = 1;
+			int start = i+1;
+			int next = arr[i];
+			while(next!=start){
+				next = arr[next-1];
+				cnt++;
+			}
+			if(!al.contains(cnt)) al.add(cnt);		
+		}
+		
+		return lcm(al);
+	}
+	
+	public static int lcm(ArrayList arr){
+		while(arr.size()>1){
+			int num = lcm((int)arr.get(0),(int)arr.get(1));
+			arr.remove(0);
+			arr.remove(0);
+			arr.add(num);	
+		}		
+		return (int)arr.get(0);
+	}
+	public static int lcm(int x, int y){
+		int gcd = eu(x,y);
+		long tmp = (long)x*(long)y/(long)gcd;
+		return (int)tmp;
+	}
+	public static int eu (int x, int y){
+		int n;
+		while(true){
+			n = x%y;
+			if(n==0) return y;
+			x = y;
+			y = n;
+		}
+	}
+}
+
+
+/*
+public class Main{	
+	public static void main(String[] args){
+		Scanner sn = new Scanner(System.in);
+		int length = Integer.parseInt(sn.nextLine());
+		String[] cardNums = sn.nextLine().split(" ");
+		int[] cardNumsInt = new int[length];
+		int[] start = new int[length];	
+		
+		for(int i=0; i<length;i++){
+			cardNumsInt[i] = Integer.parseInt(cardNums[i]);
+			start[i] = i+1;
+		}		
+		System.out.println(tracePath(start,cardNumsInt,0));
+	}
+	
+	public static int tracePath(int[] start, int[] path, int count){
+		count++;
+		boolean check = true;
+		int[] tmp = new int[start.length];
+		System.arraycopy(start, 0, tmp, 0, start.length);
+		for(int i=0; i<path.length;i++){
+			start[i] = tmp[path[i]-1];
+			if(check){
+				if(start[i] != i+1) check=false;
+			}
+		}
+		
+		if(check){ return count; }	
+		else { return tracePath(start,path,count);}
+	}
+}
+*/

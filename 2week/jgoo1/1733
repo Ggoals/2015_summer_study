@@ -1,0 +1,170 @@
+import java.util.Scanner;
+
+public class Main{
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		int[][] omock = new int[19][19];
+		for(int i=0; i<19; i++){
+			String[] s = sc.nextLine().split(" ");
+			for(int j=0; j<19;j++){
+				omock[i][j] = Integer.parseInt(s[j]);
+			}
+		}
+		int[] result = checkResult(omock);
+		System.out.println(result[0]);
+		if(result[0]!=0) System.out.println(result[1] + " " + result[2]);
+				
+	}
+	
+	public static int[] checkResult(int[][] arr){
+		int[] result;
+		
+		result = checkRow(arr);
+		if(result[0] != 0)	return result;
+		
+		result = checkColumn(arr);
+		if(result[0] != 0)	return result;
+		
+		result = diagonalLURD(arr);
+		if(result[0] != 0)	return result;
+		
+		result = diagonalLDRU(arr);
+		if(result[0] != 0)	return result;
+			
+		
+		return result;
+	}
+	
+	public static int[] checkRow(int[][] arr){
+		
+		for(int i=0; i<19;i++){
+			for(int j=0;j<15;j++){
+				boolean check = true;
+				if(arr[i][j] == 1){
+					if((arr[i][j+1]==1)&&(arr[i][j+2]==1)&&(arr[i][j+3]==1)&&(arr[i][j+4]==1)){
+						int[] result = {1,i+1,j+1};						
+						if(j<14){
+							if(arr[i][j+5] == 1) check=false; 
+						}
+						if(j>0){
+							if(arr[i][j-1] == 1) check=false;
+						}
+						if(check) return result;
+					}
+				}else if(arr[i][j] == 2){
+					if((arr[i][j+1]==2)&&(arr[i][j+2]==2)&&(arr[i][j+3]==2)&&(arr[i][j+4]==2)){
+						int[] result = {2,i+1,j+1};
+						if(j<14){
+							if(arr[i][j+5] == 2) check=false; 
+						}
+						if(j>0){
+							if(arr[i][j-1] == 2) check=false;
+						}
+						if(check) return result;
+					}
+				}
+			}
+		}
+		int[] result = {0,0,0};
+		return result;
+	}
+	
+	public static int[] checkColumn(int[][] arr){		
+		for(int i=0; i<15;i++){
+			for(int j=0;j<19;j++){
+				boolean check = true;
+				if(arr[i][j] == 1){
+					if((arr[i+1][j]==1)&&(arr[i+2][j]==1)&&(arr[i+3][j]==1)&&(arr[i+4][j]==1)){
+						int[] result = {1,i+1,j+1};
+						if(i<14){
+							if(arr[i+5][j] == 1) check=false; 
+						}
+						if(i>0){
+							if(arr[i-1][j] == 1) check=false;
+						}
+						if(check) return result;
+					}
+				}else if(arr[i][j] == 2){
+					if((arr[i+1][j]==2)&&(arr[i+2][j]==2)&&(arr[i+3][j]==2)&&(arr[i+4][j]==2)){
+						int[] result = {2,i+1,j+1};
+						if(i<14){
+							if(arr[i+5][j] == 2) check=false; 
+						}
+						if(i>0){
+							if(arr[i-1][j] == 2) check=false;
+						}
+						if(check) return result;
+					}
+				}
+			}
+		}
+		int[] result = {0,0,0};
+		return result;
+	}
+	
+	public static int[] diagonalLURD(int[][] arr){		
+		for(int i=0; i<15;i++){
+			for(int j=0;j<15;j++){
+				boolean check = true;
+				if(arr[i][j] == 1){
+					if((arr[i+1][j+1]==1)&&(arr[i+2][j+2]==1)&&(arr[i+3][j+3]==1)&&(arr[i+4][j+4]==1)){
+						int[] result = {1,i+1,j+1};
+						if(i<14&&j<14){
+							if(arr[i+5][j+5] == 1) check=false; 
+						}
+						if(i>0&&j>0){
+							if(arr[i-1][j-1] == 1) check=false;
+						}
+						if(check) return result;
+					}
+				}else if(arr[i][j] == 2){
+					if((arr[i+1][j+1]==2)&&(arr[i+2][j+2]==2)&&(arr[i+3][j+3]==2)&&(arr[i+4][j+4]==2)) {
+						int[] result = {2,i+1,j+1};
+						if(i<14&&j<14){
+							if(arr[i+5][j+5] == 2) check=false; 
+						}
+						if(i>0&&j>0){
+							if(arr[i-1][j-1] == 2) check=false;
+						}
+						if(check) return result;
+					}
+				}
+			}
+		}
+		int[] result = {0,0,0};
+		return result;
+	}
+	
+	public static int[] diagonalLDRU(int[][] arr){		
+		for(int i=4; i<19;i++){
+			for(int j=0;j<15;j++){
+				boolean check = true;
+				if(arr[i][j] == 1){
+					if((arr[i-1][j+1]==1)&&(arr[i-2][j+2]==1)&&(arr[i-3][j+3]==1)&&(arr[i-4][j+4]==1)) {
+						int[] result = {1,i+1,j+1};
+						if(i>4&&j<14){
+							if(arr[i-5][j+5] == 1) check=false; 
+						}
+						if(i<18&&j>0){
+							if(arr[i+1][j-1] == 1) check=false;
+						}
+						if(check) return result;
+					}
+				}else if(arr[i][j] == 2){
+					if((arr[i-1][j+1]==2)&&(arr[i-2][j+2]==2)&&(arr[i-3][j+3]==2)&&(arr[i-4][j+4]==2)){
+						int[] result = {2,i+1,j+1};
+						if(i>4&&j<14){
+							if(arr[i-5][j+5] == 2) check=false; 
+						}
+						if(i<18&&j>0){
+							if(arr[i+1][j-1] == 2) check=false;
+						}
+						if(check) return result;
+					}
+				}
+			}
+		}
+		int[] result = {0,0,0};
+		return result;
+	}
+}

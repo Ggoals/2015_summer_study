@@ -1,0 +1,37 @@
+
+import java.util.Scanner;
+
+public class Main{
+	public static void main(String[] args){
+		Scanner sn = new Scanner(System.in);
+		String[] input = sn.nextLine().split(" ");
+		String[] dummy = input[0].split("-");
+		
+		if(checkDummy(dummy)||(input.length != 3)){
+			int position =  Integer.parseInt(input[2]);
+			String[] passWord = {"0","0","0","0"};
+			if(dummy.length >= position){	passWord = dummy[position-1].split("");	}			
+			if(passWord.length<4){
+				String[] tmp = {"0","0","0","0"};
+				System.arraycopy(passWord, 0, tmp, 4-passWord.length, passWord.length);
+				passWord = tmp;
+			}
+			for(int i=0; i<passWord.length; i++){					
+				int num = Integer.parseInt(passWord[i]);
+				int plus = Integer.parseInt(input[1]);
+				System.out.print((num+plus)%10);
+			}
+				
+		}else System.out.print("INPUT ERROR!");
+		
+		
+		
+	}
+	
+	public static boolean checkDummy(String[] arr){
+		for(int i=0; i<arr.length;i++){
+			if(arr[i].length()>4) return false;
+		}
+		return true;
+	}
+}
