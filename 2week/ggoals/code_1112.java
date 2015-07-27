@@ -1,10 +1,16 @@
 import java.util.Scanner;
 import java.lang.Math;
 
+import java.util.Map;
+
 public class code_1112 {
 	public static void main(String[] args) {
 		int length;
 		float points[][] = new float [3][2];
+		
+		Map<Integer, Integer> map = null;
+		
+		map.put(1,  1);
 		
 		Scanner sc = new Scanner(System.in);
 		length = sc.nextInt();
