@@ -1,0 +1,66 @@
+import java.util.Scanner;
+
+public class Main{
+	public static int size = 100;
+	public static void main(String[] args){
+		Scanner sn = new Scanner(System.in);
+		
+		int num = sn.nextInt();
+		int[][] coordinates = new int[size][size]; 
+		int[][] arr = new int[num][2];
+		for(int i=0; i<num; i++){
+			arr[i][0] = sn.nextInt();
+			arr[i][1] = sn.nextInt();
+		}
+		
+		
+		for(int i=0;i<num;i++){
+			for(int j=arr[i][0];j<arr[i][0]+10;j++){
+				for(int k=arr[i][1];k<arr[i][1]+10;k++){
+					coordinates[j][k] = 1;
+				}				
+			}
+		}
+		System.out.println(getSquareAround(coordinates));	
+		//printArray(coordinates);
+	}
+	
+	public static void printArray(int[][] arr){
+		for(int i=0;i<size;i++){
+			for(int j=0;j<size;j++){
+				System.out.print(arr[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
+	
+	public static int getSquareAround(int[][] arr){
+		
+		int top = 0;
+		int bottom = 0;
+		int left = 0 ;
+		int right = 0;
+		for(int i=0;i<size;i++){
+			for(int j=0;j<size;j++){
+				
+				if(arr[i][j] == 1){
+					//top
+					if(i==0) top++;
+					else if(arr[i-1][j]==0) top++;
+					
+					//bottom
+					if(i==size-1) bottom++;
+					else if(arr[i+1][j]==0) bottom++;
+					//left
+					if(j==0) left++;
+					else if(arr[i][j-1]==0) left++;
+					
+					//right
+					if(j==size-1) right++;
+					else if(arr[i][j+1]==0) right++;
+				}			
+			}
+		}
+		return top+bottom+left+right;
+	}
+}
