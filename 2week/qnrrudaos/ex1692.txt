@@ -1,0 +1,30 @@
+package org.javatest.eclipse;
+
+import java.util.Scanner;
+
+public class Ex1692 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		
+		int a = sc.nextInt();
+		int b = sc.nextInt();
+		
+		int c = b%10;
+		int d = (b/10)%10;
+		int e = b/100;
+		
+		int f = a*c;
+		int g = a*d;
+		int h = a*e;
+		
+		int z = f + (g*10) + (h*100);
+		
+		System.out.println(f);
+		System.out.println(g);
+		System.out.println(h);
+		System.out.println(z);
+	}
+
+}
