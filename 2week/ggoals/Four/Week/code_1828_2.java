@@ -4,10 +4,9 @@ import java.util.Scanner;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.ArrayList;
 
-public class code_1828 {
+public class code_1828_2 {
 	public static void main(String args[]) {
 		int count;
 		
@@ -21,27 +20,8 @@ public class code_1828 {
 			arr[i][0] = sc.nextInt();
 			arr[i][1] = sc.nextInt();
 		}
-		HashSet<String> foodSet = new HashSet<String>();
-		for(int i = 0; i < arr.length; i++) {
-			foodSet.add(arr[i][0] + "," + arr[i][1]);
-		}
 		
-		
-		ArrayList<int[]> noDuplicateArr = new ArrayList<int[]>();
-		for(Iterator<String> i = foodSet.iterator(); i.hasNext(); ){
-			String item = i.next();
-			int tempArr[] = {Integer.parseInt(item.split(",")[0]), Integer.parseInt(item.split(",")[1]) };
-			noDuplicateArr.add(tempArr);
-		}
-		
-		
-		
-		List<int[]> noDuplicateList = new ArrayList<int[]>();
-		for(int i = 0; i < arr.length; i++) {
-			noDuplicateList.add( arr[i]);
-		}
-	
-		int minCount = getMinRefrigerator(noDuplicateList);
+		int minCount = getMinRefrigerator(arr);
 		
 		System.out.println(minCount);
 		
@@ -49,16 +29,16 @@ public class code_1828 {
 		sc.close();
 	}
 	
-	public static int getMinRefrigerator(List<int[]> foodList) {
+	public static int getMinRefrigerator(int arr[][]) {
 		int refrigeratorCount = 0;
 		
 		HashSet<int[]> foodSet = new HashSet<int[]>();
 		
 		
-		int minAndMax[] = getMinAndMax(foodList);
+		int minAndMax[] = getMinAndMax(arr);
 		
-		for(int i = 0; i < foodList.size(); i++) {
-			foodSet.add(foodList.get(i));
+		for(int i = 0; i < arr.length; i++) {
+			foodSet.add(arr[i]);
 		}
 		
 		
@@ -105,12 +85,12 @@ public class code_1828 {
 		return refrigeratorCount;
 	}
 	
-	public static int[] getMinAndMax(List<int[]> lst) {
+	public static int[] getMinAndMax(int arr[][]) {
 		int minAndMax[] = {Integer.MAX_VALUE, 0};
 		
-		for(int i = 0; i < lst.size(); i++) {
-			if(lst.get(i)[0] < minAndMax[0]) minAndMax[0] = lst.get(i)[0];
-			if(lst.get(i)[1] > minAndMax[1]) minAndMax[1] = lst.get(i)[1];
+		for(int i = 0; i < arr.length; i++) {
+			if(arr[i][0] < minAndMax[0]) minAndMax[0] = arr[i][0];
+			if(arr[i][1] > minAndMax[1]) minAndMax[1] = arr[i][1];
 		}
 		
 		return minAndMax;
