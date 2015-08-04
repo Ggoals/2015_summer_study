@@ -46,7 +46,7 @@ public class code_1828_3 {
 	public static int getMinRefrigerator(int arr[][]) {
 		int refrigeratorCount = 0;
 		
-		HashSet<int[]> foodSet = new HashSet<int[]>();
+		List<int[]> foodSet = new ArrayList<int[]>();
 		
 		
 		for(int i = 0; i < arr.length; i++) {
@@ -57,9 +57,10 @@ public class code_1828_3 {
 		while(foodSet.size() >0) {
 			HashMap<String, Integer> counts = new HashMap<String, Integer>();
 			
-			for(Iterator<int[]> i = foodSet.iterator(); i.hasNext(); ) {
-				int[] item = i.next();
-				for(int j = item[0]; j <= item[1]; j++) {
+			int[] first = foodSet.iterator().next();
+			for(int i = 0; i < foodSet.size(); i++) {
+				if(foodSet.get(i)[0] > first[1]) continue;
+				for(int j = foodSet.get(i)[0]; j <= foodSet.get(i)[1] && j <= first[1]; j++) {
 					counts.put(Integer.toString(j), counts.getOrDefault(Integer.toString(j), 0) + 1);
 				}
 			}
@@ -67,7 +68,7 @@ public class code_1828_3 {
 			int maxCount = 0;
 			int point = Integer.MAX_VALUE;
 			
-			int[] first = foodSet.iterator().next();
+			
 			for(int i = first[0]; i <= first[1]; i++) {
 				if(counts.getOrDefault(Integer.toString(i), 0) > maxCount) {
 					maxCount = counts.getOrDefault(Integer.toString(i), 0);
@@ -75,18 +76,13 @@ public class code_1828_3 {
 				}
 			}
 			
-			ArrayList<int[]> lst = new ArrayList<int[]>(); 
-			
-			for(Iterator<int[]> i = foodSet.iterator(); i.hasNext(); ) {
-				int[] item = i.next();
-				if(item[0] <= point && item[1] >= point) {
-					lst.add(item);
-					//foodSet.remove(item);
+			for(int i = 0; i < foodSet.size(); i++) {
+				if(foodSet.get(i)[0] <= point && foodSet.get(i)[1] >= point) {
+					
+					foodSet.remove(i);
+					i--;
 				}
-			}
-			
-			for(int i = 0; i < lst.size(); i++) {
-				foodSet.remove(lst.get(i));
+				
 			}
 			
 			refrigeratorCount++;
@@ -102,7 +98,7 @@ public class code_1828_3 {
 		
 		@Override
 		public int compare(int[] arg1, int[] arg2) {
-			return arg1[0] - arg2[0];
+			return arg1[1] - arg2[1];
 		}
 	}
 	
