@@ -1,12 +1,13 @@
 package Four.Week;
 
 import java.util.Scanner;
-import java.util.Stack;
+import java.util.Queue;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
 
 public class code_1300 {
-	public void main(String args[]) {
+	public static void main(String args[]) {
 		int count, groupCount;
 		
 		Scanner sc = new Scanner(System.in);
@@ -18,45 +19,87 @@ public class code_1300 {
 			arr[i] = sc.nextInt();
 		}
 		
-		int result[] = getMinMaxArr(arr, groupCount);
+		getAndPrintMinMaxArr(arr, groupCount);
 		
-		
-		int sum = 0;
-		for(int i = 0; i < result.length; i++) {
-			sum = arr[i];
-		}
-		
-		System.out.println(sum);
-		for(int i = 0; i < result.length; i++) {
-			System.out.print(arr[i] + " ");
-		}
 		
 		
 		sc.close();
 	}
 	
-	public static int[] getMinMaxArr(int[] arr, int groupCount) {
-		Stack<Double> stack = new Stack<Double>();
+	public static void getAndPrintMinMaxArr(int[] arr, int groupCount) {
+		Queue<Double> queue = new LinkedList<Double>();
 		
 		
-		int total = 0;
+		double total = 0;
 		
 		for(int i = 0; i < arr.length; i++) {
 			total += arr[i];
-			stack.add(e)
+			queue.add((double)arr[i]);
 		}
 		
-		List<List<Integer>> balancedList = new ArrayList<ArrayList<Integer>>();
+		double average = total / (double)groupCount;
 		
-		while(true) {
+		List<ArrayList<Integer>> balancedList = new ArrayList<ArrayList<Integer>>();
+		
+		
+		ArrayList<Integer> elementList = new ArrayList<Integer>();
+		boolean isNewElements = false;
+		double sum = 0;
+		
+		while(!queue.isEmpty()) {
+			
+			Double peek = queue.peek();
+			
+			if(groupCount == 1) {
+				while(!queue.isEmpty()) {
+					elementList.add(queue.poll().intValue());
+				}
+				balancedList.add(elementList);
+				break;
+			}
+			
+			
+			if(Math.abs(peek + sum - average) < Math.abs(sum - average)) {
+				elementList.add(queue.poll().intValue());
+				sum += peek;
+				continue;
+			} 
+			else if(Math.abs(peek + sum - average) == Math.abs(sum - average)) {
+				elementList.add(queue.poll().intValue());
+				sum += peek;
+				continue;
+			} 
+			else {
+				balancedList.add(elementList);
+				elementList = new ArrayList<Integer>();
+				sum = 0;
+				groupCount--;
+				continue;
+			}
+			
 			
 		}
 		
-		double average = total / groupCount;
+		int maxIndex = -1;
+		int tempMaxValue = 0;
+		for(int i = 0; i < balancedList.size(); i++) {
+			
+			int listSum = 0;
+			for(int j = 0; j < balancedList.get(i).size(); j++) {
+				listSum += balancedList.get(i).get(j);
+			}
+			
+			if(listSum > tempMaxValue) {
+				tempMaxValue = listSum;
+				maxIndex = i;
+			}
+		}
 		
 		
+		System.out.println(tempMaxValue);
 		
-		
-		return result;
+		for(int i = 0; i < balancedList.size(); i++) {
+			System.out.print( balancedList.get(i).size()+ " ");
+		}
 	}
 }
