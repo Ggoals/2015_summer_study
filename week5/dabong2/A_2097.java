@@ -7,7 +7,7 @@ public class A_2097 {
 
 
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
       //  Scanner in = new Scanner(new File("input.txt"));
         Scanner in = new Scanner(System.in);
       //  PrintWriter out = new PrintWriter(new File("output.txt"));
@@ -19,12 +19,9 @@ public class A_2097 {
                 s.addEdge(i, j, in.nextInt());
             }
         }
-     //   s.dijkstra(out);
+
         s.dijkstra();
-        
-     //   in.close();
-       // out.close();
-    }
+            }
 }
 
 class Graph {
@@ -60,7 +57,7 @@ class Subway extends Graph {
         this.check = new boolean[n + 1];
     }
     
-    //void dijkstra(PrintWriter out) {
+
     void dijkstra(){
         int min, pos = 0;
         
