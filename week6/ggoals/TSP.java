@@ -17,8 +17,12 @@ public class TSP {
 					tsp._distance[j][k] = sc.nextDouble();
 				}
 			}
+			double min = Integer.MAX_VALUE;
 			
-			System.out.println(tsp.caculateTSP(0, (1<<size) - 2));
+			for(int j = 0; j < size; j++) {
+				min = Math.min(min, tsp.caculateTSP(j, (1<<size) - 1));
+			}
+			System.out.println(min);
 		}
 		
 		
@@ -39,6 +43,7 @@ class tspAlgorithm {
 	}
 	
 	public double caculateTSP(int from, int toFlag) {
+		
 		
 		double memo = _memory[from][toFlag]; 
 	    if (memo != 0) {
