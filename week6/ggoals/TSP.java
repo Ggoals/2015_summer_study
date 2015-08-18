@@ -6,11 +6,19 @@ public class TSP {
 	public static void main(String args[]) {
 		Scanner sc = new Scanner(System.in);
 		int count = sc.nextInt();
+
 		
 		for(int i = 0; i < count; i++) {
 			int size = sc.nextInt();
 			tspAlgorithm tsp = new tspAlgorithm(size);
-			System.out.println(tsp.caculateTSP(1, 8));
+			
+			for(int j = 0; j < size; j++) {
+				for(int k = 0; k < size; k++) {
+					tsp._distance[j][k] = sc.nextDouble();
+				}
+			}
+			
+			System.out.println(tsp.caculateTSP(0, (1<<size) - 2));
 		}
 		
 		
@@ -21,18 +29,18 @@ public class TSP {
 
 class tspAlgorithm {
 	private int _size;
-	private int _distance[][];
-	private int _memory[][];
+	public double _distance[][];
+	private double _memory[][];
 	
 	public tspAlgorithm(int size) {
 		this._size = size;
-		this._distance = new int[size][size];
-		this._memory = new int[size][1<<size];
+		this._distance = new double[size][size];
+		this._memory = new double[size][1<<size];
 	}
 	
-	public int caculateTSP(int from, int toFlag) {
+	public double caculateTSP(int from, int toFlag) {
 		
-		int memo = _memory[from][toFlag]; // _memory[][] 가 0 로 초기화 되어 있어야 함.
+		double memo = _memory[from][toFlag]; 
 	    if (memo != 0) {
 	        return memo;
 	    }
@@ -41,13 +49,35 @@ class tspAlgorithm {
 	        return _distance[from][to];
 	    }
 	 
-	    memo = 99999999; // 그냥 충분히 큰 수를 사용해도 된다
-	    for (int i = 0; i < _size /* the nuber of cities */; i++) {
-	        if ( !(toFlag & (1 << i)) ) continue;
+	    memo = 99999999; 
+	    for (int i = 0; i < _size /* the number of cities */; i++) {
+	        if ( ( toFlag & (1 << i) ) == 0 ) continue;
 	 
-	        int v = _distance[from][i] + caculateTSP(i, (toFlag & ~(1<<i)));
+	        double v = _distance[from][i] + caculateTSP(i, ( toFlag & ~(1<<i) ) );
 	        memo = Math.min(memo, v);
 	    }
 	    return memo;
+	}
+	
+	private int __builtin_popcount(int num) {
+		int count = 0;
+		
+		while(num > 0) {
+			count += num % 2;
+			num = num / 2;
+		}
+		
+		return count;
+	}
+	
+	private int __builtin_ctz(int num) {
+		int count = -1;
+		
+		while(num > 0) {
+			num = num /2;
+			count++;
+		}
+		
+		return count;
 	}
 }
