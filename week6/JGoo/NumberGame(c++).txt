@@ -1,0 +1,39 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+const int EMPTY=-987654321;
+int N, board[50];
+int cache[50][50];
+
+int dp(int left, int right){
+    if(left>right) return 0;
+
+    int&ret=cache[left][right];
+    if(ret!=EMPTY) return ret;
+
+    ret=max(board[left]-dp(left+1,right), board[right]-dp(left,right-1));
+    if(right-left+1>=2){
+        ret=max(ret, -dp(left+2, right));
+        ret=max(ret, -dp(left, right-2));
+    }
+    return ret;
+}
+
+int main(){
+    int T; scanf("%d", &T);
+    while(T--){
+        int N; scanf("%d", &N);
+        for(int i=0; i<N; ++i)
+            scanf("%d", &board[i]);
+
+        for(int i=0; i<N; ++i)for(int j=0; j<N; ++j) cache[i][j]=EMPTY;
+
+        printf("%d\n", dp(0,N-1));
+    }
+
+    return 0;
+}
+
+
